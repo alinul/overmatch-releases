@@ -5,7 +5,6 @@ A free OW2 overlay that recommends counter-picks based on the enemy team.
 [![Latest Release](https://img.shields.io/github/v/release/alinul/overmatch-releases?label=Download&color=E0A000)](https://github.com/alinul/overmatch-releases/releases/latest)
 [![Ko-fi](https://img.shields.io/badge/support-Ko--fi-FF5E5B?logo=kofi&logoColor=white)](https://ko-fi.com/alinul)
 
-> Screenshot / GIF coming soon
 
 ## What it does
 
@@ -13,8 +12,6 @@ A free OW2 overlay that recommends counter-picks based on the enemy team.
 - Detects all 5 enemy heroes via image matching against in-game portraits
 - Recommends the top 3 counter picks per role — Tank, Damage, Support — with arrow strength indicators
 - Shows in real-time which slots were detected cleanly (green border) vs missed (red border)
-
-Counter data is synthesized from `rankedboost.com`, `dotesports`, `esports.gg`, `charlieintel`, `gamerant`, `1v9.gg`, and pro/coach guides. Covers all 51 current OW2 heroes (May 2026 roster).
 
 ## Install
 
@@ -34,7 +31,6 @@ The overlay starts hidden. Press **F2** to toggle it visible. While visible, it 
 | `F3` | Open the Ko-fi support page |
 | `Ctrl+Shift+F2` | Quit Overmatch |
 
-`F1` is intentionally not used — it's OW2's "Hero Help" key.
 
 ## Requirements
 
@@ -57,9 +53,9 @@ This is the same approach OBS Game Capture, the Discord overlay, and similar too
 
 When the overlay is visible:
 
-1. Captures the OW2 window every 600 ms via screen-capture API
-2. Checks if the SCOREBOARD tab is highlighted (skips if not — no wasted matching)
-3. Locates the red enemy panel by scanning for its left edge
+1. Captures the OW2 window
+2. Checks if the SCOREBOARD tab is highlighted
+3. Locates the red enemy panel
 4. Crops the 5 enemy portrait slots
 5. For each slot:
    - Skips if it's a pre-pick "?" silhouette (all slots look the same → silhouette state)
@@ -67,7 +63,7 @@ When the overlay is visible:
    - Otherwise runs OpenCV template matching against all 51 hero portraits at multiple scales, picks best match
 6. **Suggestions only refresh on a complete 5/5 detection** — partial reads (4 alive, 1 dead) keep the previous suggestions stable instead of thrashing
 
-Detection accuracy is around 90% on a clean scoreboard. The ENEMIES row in the overlay shows you which slots matched (green) and which didn't (red) so you can see when to trust the picks.
+Detection accuracy is around 95% on a clean scoreboard. The ENEMIES row in the overlay shows you which slots matched (green) and which didn't (red) so you can see when to trust the picks.
 
 ## Auto-update
 
@@ -90,5 +86,5 @@ Open an issue on this repo. Include:
 ## Credits
 
 - Hero portraits via [Liquipedia](https://liquipedia.net/overwatch/) — © Blizzard, used as reference templates only
-- Counter data synthesized from community guides (see "What it does")
+- Counter data synthesized from community guides
 - Built in C# / WPF on .NET 8 with [OpenCvSharp](https://github.com/shimat/opencvsharp) for image matching
